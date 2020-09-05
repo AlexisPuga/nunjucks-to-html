@@ -28,7 +28,7 @@ const expandDir = require('../lib/expand-dir');
  *     otherwise, reject with the error.
  * Return a promise with the resolved values.
  *
- * @param {string} [sources=all .njk files] - A glob pattern.
+ * @param {string[]} [sources=all .njk files] - A array of glob patterns.
  * @param {object} [options] - Non-nunjucks options.
  * @param {string} [options.config="./nunjucks.config.js"] - Path for
  *     the config file. Relative to cwd.
@@ -36,7 +36,7 @@ const expandDir = require('../lib/expand-dir');
  * @param {string} [dest="./public"] - A destination path relative to cwd.
  * @return {Promise} A promise with all the results.
  */
-async function parseNunjucksTemplatesToHTML (sources = '**/*.njk', {
+async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], {
 	config: relativeConfigFilepath = './nunjucks.config.js',
 	dest: relativeDestinationPath = './public',
 	cwd: customCwd

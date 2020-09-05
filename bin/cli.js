@@ -10,8 +10,11 @@ const getCliSources = require('../lib/get-cli-sources');
 
 	// First 2 args are not required.
 	const cliArgs = process.argv.slice(2);
-	const cliPaths = getCliSources(cliArgs);
-	const cliOptions = getCliOptions(cliArgs);
+	let cliPaths = getCliSources(cliArgs);
+	let cliOptions = getCliOptions(cliArgs);
+
+	// Use defaults instead of empty array.
+	if (!cliPaths.length) { cliPaths = void 0; }
 
 	try { await nunjucksToHtml(cliPaths, cliOptions); }
 	catch (exception) {
