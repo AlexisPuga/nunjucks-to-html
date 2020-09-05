@@ -33,13 +33,13 @@ const expandDir = require('../lib/expand-dir');
  * @param {string} [options.config="./nunjucks.config.js"] - Path for
  *     the config file. Relative to cwd.
  * @param {string} [cwd=process.cwd()] - Current working directory.
- * @param {string} [dest] - A destination path relative to cwd.
+ * @param {string} [dest="./public"] - A destination path relative to cwd.
  * @return {Promise} A promise with all the results.
  */
 async function parseNunjucksTemplatesToHTML (sources = '**/*.njk', {
 	config: relativeConfigFilepath = './nunjucks.config.js',
-	cwd: customCwd,
-	dest: relativeDestinationPath
+	dest: relativeDestinationPath = './public',
+	cwd: customCwd
 }) {
 
 	const cwd = customCwd || process.cwd();
