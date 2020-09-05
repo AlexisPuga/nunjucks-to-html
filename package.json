@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/AlexisPuga/nunjucks-to-html#readme",
   "dependencies": {
+    "glob": "^7.1.6",
     "nunjucks": "^3.2.2"
   }
 }
