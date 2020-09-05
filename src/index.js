@@ -43,37 +43,41 @@ async function parseNunjucksTemplatesToHTML (sources = '**/*.njk', {
 }) {
 
 	const cwd = customCwd || process.cwd();
-	const config = getFileContents(relativeConfigFilepath, cwd);
-	const jobs = (Array.isArray(config) ? config : [config]);
 	const filepaths = await getFilepaths(sources);
 	const destinationPath = pathJoin(cwd, relativeDestinationPath);
-	const tasks = filepaths.map((src) => new Promise((resolve, reject) => {
+	const configFilepath = pathJoin(cwd, relativeConfigFilepath);
+	const config = (fs.existsSync(configFilepath)
+		? getFileContents(configFilepath)
+		: []
+	);
+	const jobs = (Array.isArray(config) ? config : [config]);
+	const actions = jobs.map(({
+		options: customOptions = {},
+		configure = {},
+		render = {}
+	}) => new Promise((resolve, reject) => {
 
-		const filepath = pathJoin(cwd, src);
-		const destinationFilepath = expandDir(filepath, destinationPath);
-		const actions = jobs.map(({
-			options: customOptions = {},
-			configure = {},
-			render = {}
-		}) => new Promise((resolve, reject) => {
+		const {
+			beforeRender,
+			beforeWrite,
+			data: dataFilepath
+		} = customOptions;
+		const {path, options} = configure;
+		const {name, context = {}} = render;
+		const dataFileContents = (typeof dataFilepath === 'string'
+			? getFileContents(dataFilepath, cwd)
+			: null
+		);
+		let data = {
+			...dataFileContents,
+			...context
+		};
+		const tasks = filepaths.map((src) => new Promise((resolve, reject) => {
 
-			const {
-				beforeRender,
-				beforeWrite,
-				data: dataFilepath
-			} = customOptions;
-			const {path, options} = configure;
-			const {name, context = {}} = render;
+			const filepath = pathJoin(cwd, src);
+			const destinationFilepath = expandDir(filepath, destinationPath);
 			const renderName = name || filepath;
-			const dataFileContents = (typeof dataFilepath === 'string'
-				? getFileContents(dataFilepath, cwd)
-				: null
-			);
 			const nunjucksEnv = nunjucks.configure(path, options);
-			let data = {
-				...dataFileContents,
-				...context
-			};
 			let continueRendering;
 
 			if (typeof beforeRender === 'function') {
@@ -113,11 +117,11 @@ async function parseNunjucksTemplatesToHTML (sources = '**/*.njk', {
 
 		}));
 
-		Promise.all(actions).then(resolve).catch(reject);
+		Promise.all(tasks).then(resolve).catch(reject);
 
 	}));
 
-	return await Promise.all(tasks);
+	return await Promise.all(actions);
 
 }
 
