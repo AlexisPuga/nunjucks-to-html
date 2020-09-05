@@ -31,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/AlexisPuga/nunjucks-to-html/issues"
   },
-  "homepage": "https://github.com/AlexisPuga/nunjucks-to-html#readme"
+  "homepage": "https://github.com/AlexisPuga/nunjucks-to-html#readme",
+  "dependencies": {
+    "nunjucks": "^3.2.2"
+  }
 }
