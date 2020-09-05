@@ -1,0 +1,35 @@
+{
+  "name": "nunjucks-to-html",
+  "version": "1.0.0-dev",
+  "description": "Parse Nunjucks templates to HTML directly from the console.",
+  "main": "src/index.js",
+  "bin": "./bin/cli.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexisPuga/nunjucks-to-html.git"
+  },
+  "keywords": [
+    "nunjucks to html",
+    "njk to html",
+    "nunjucks",
+    "html",
+    "CLI tool",
+    "template engine tool"
+  ],
+  "author": {
+    "name": "Alexis Puga",
+    "email": "alexispuga@pm.me",
+    "url": "https://github.com/AlexisPuga"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexisPuga/nunjucks-to-html/issues"
+  },
+  "homepage": "https://github.com/AlexisPuga/nunjucks-to-html#readme"
+}
