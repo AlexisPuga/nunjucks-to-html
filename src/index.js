@@ -51,7 +51,11 @@ async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], {
 		: []
 	);
 	const jobs = (Array.isArray(config) ? config : [config]);
-	const actions = jobs.map(({
+	let actions;
+
+	if (!jobs.length) { jobs.push({}); /* Run at least once. */ }
+
+	actions = jobs.map(({
 		options: customOptions = {},
 		configure = {},
 		render = {}
