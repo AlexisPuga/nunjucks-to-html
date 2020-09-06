@@ -40,7 +40,7 @@ const flattenDir = require('../lib/flatten-dir');
  * @param {string} [cwd=process.cwd()] - Current working directory.
  * @param {string} [dest="./public"] - A destination path relative to cwd.
  * @param {string} [ext=".html"] - The extension for the destination file.
- * @param {string} [expand=true] - If truthy, use full source file name under destination path. Otherwise, flatten it.
+ * @param {boolean} [expand=true] - If truthy, use full source file name under destination path. Otherwise, flatten it.
  * @return {Promise} A promise with all the results.
  */
 async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], {
