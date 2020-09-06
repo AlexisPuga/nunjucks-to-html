@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "jest --ci",
+    "dev": "jest --watch --coverage",
     "test:integration": "jest test/integration --ci"
   },
   "repository": {
