@@ -1,11 +1,16 @@
 'use strict';
 
-const {join: pathJoin, dirname: pathDirname} = require('path');
+const {
+	join: pathJoin,
+	dirname: pathDirname,
+	basename: pathBasename
+} = require('path');
 const fs = require('fs');
 const nunjucks = require('nunjucks');
 const getFileContents = require('../lib/get-file-contents');
 const getFilepaths = require('../lib/get-filepaths');
 const expandDir = require('../lib/expand-dir');
+const flattenDir = require('../lib/flatten-dir');
 
 /**
  * Parse Nunjucks templates to HTML.
@@ -35,13 +40,15 @@ const expandDir = require('../lib/expand-dir');
  * @param {string} [cwd=process.cwd()] - Current working directory.
  * @param {string} [dest="./public"] - A destination path relative to cwd.
  * @param {string} [ext=".html"] - The extension for the destination file.
+ * @param {string} [expand=true] - If truthy, use full source file name under destination path. Otherwise, flatten it.
  * @return {Promise} A promise with all the results.
  */
 async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], {
 	config: relativeConfigFilepath = './nunjucks.config.js',
 	dest: relativeDestinationPath = './public',
 	ext: destinationFilepathExtension = '.html',
-	cwd: customCwd
+	cwd: customCwd,
+	expand = true
 }) {
 
 	const cwd = customCwd || process.cwd();
@@ -81,7 +88,10 @@ async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], {
 		const tasks = filepaths.map((src) => new Promise((resolve, reject) => {
 
 			const filepath = pathJoin(cwd, src);
-			const destinationFilepath = expandDir(filepath, destinationPath).replace(/\.njk$/i, destinationFilepathExtension);
+			const destinationFilepath = (expand
+				? expandDir(filepath, destinationPath)
+				: flattenDir(filepath, destinationPath)
+			).replace(/\.njk$/i, destinationFilepathExtension);
 			const renderName = name || filepath;
 			const nunjucksEnv = nunjucks.configure(path, options);
 			let continueRendering;
