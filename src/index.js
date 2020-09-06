@@ -91,7 +91,7 @@ async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], {
 			const destinationFilepath = (expand
 				? expandDir(filepath, destinationPath)
 				: flattenDir(filepath, destinationPath)
-			).replace(/\.njk$/i, destinationFilepathExtension);
+			).replace(/(\.[^.]+)?$/i, destinationFilepathExtension);
 			const renderName = name || filepath;
 			const nunjucksEnv = nunjucks.configure(path, options);
 			let continueRendering;
