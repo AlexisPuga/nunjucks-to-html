@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-	join: pathJoin,
+	resolve: pathResolve,
 	dirname: pathDirname,
 	basename: pathBasename
 } = require('path');
@@ -53,8 +53,8 @@ async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], {
 
 	const cwd = customCwd || process.cwd();
 	const filepaths = await getFilepaths(sources);
-	const destinationPath = pathJoin(cwd, relativeDestinationPath);
-	const configFilepath = pathJoin(cwd, relativeConfigFilepath);
+	const destinationPath = pathResolve(cwd, relativeDestinationPath);
+	const configFilepath = pathResolve(cwd, relativeConfigFilepath);
 	const config = (fs.existsSync(configFilepath)
 		? getFileContents(configFilepath)
 		: []
@@ -87,7 +87,7 @@ async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], {
 		};
 		const tasks = filepaths.map((src) => new Promise((resolve, reject) => {
 
-			const filepath = pathJoin(cwd, src);
+			const filepath = pathResolve(cwd, src);
 			const destinationFilepath = (expand
 				? expandDir(filepath, destinationPath)
 				: flattenDir(filepath, destinationPath)
