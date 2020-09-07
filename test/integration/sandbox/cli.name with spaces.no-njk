@@ -1,0 +1,2 @@
+{% set feature = 'CLI filename with spaces example' %}
+<h1>{{ feature }}</h1>

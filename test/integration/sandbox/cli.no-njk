@@ -1,0 +1,2 @@
+{% set feature = 'CLI custom extension example' %}
+<h1>{{ feature }}</h1>
