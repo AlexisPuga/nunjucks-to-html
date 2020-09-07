@@ -19,10 +19,20 @@ Usage: nunjucks-to-html [sources] [flags...]
 
 ## CLI examples
 
-To parse `.njk` and `.html` files in the `static/` directory and save them in `public/`:
-```cli
-nunjucks-to-html static/**/*.{njk,html}
-```
+To parse all `.njk` files and save them in `public/`:
+  ```cli
+  nunjucks-to-html
+  ```
+
+To parse all `.njk` files in `static/` and save them in `public/`:
+  ```cli
+  nunjucks-to-html --baseDir static
+  ```
+
+To parse `.njk` and `.html` files under the `static/` directory and save them in `public/static`:
+  ```cli
+  nunjucks-to-html static/**/*.{njk,html}
+  ```
 
 To configure the destination path, use the `--dest` flag:
   ```cli
