@@ -43,14 +43,15 @@ const flattenDir = require('../lib/flatten-dir');
  * @param {boolean} [expand=true] - If truthy, use full source file name under destination path. Otherwise, flatten it.
  * @return {Promise} A promise with all the results.
  */
-async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], {
-	config: relativeConfigFilepath = './nunjucks.config.js',
-	dest: relativeDestinationPath = './public',
-	ext: destinationFilepathExtension = '.html',
-	cwd: customCwd,
-	expand = true
-}) {
+async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], options) {
 
+	const {
+		config: relativeConfigFilepath = './nunjucks.config.js',
+		dest: relativeDestinationPath = './public',
+		ext: destinationFilepathExtension = '.html',
+		cwd: customCwd,
+		expand = true
+	} = Object(options);
 	const cwd = customCwd || process.cwd();
 	const filepaths = await getFilepaths(sources);
 	const destinationPath = pathResolve(cwd, relativeDestinationPath);
