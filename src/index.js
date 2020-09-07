@@ -3,7 +3,8 @@
 const {
 	resolve: pathResolve,
 	dirname: pathDirname,
-	basename: pathBasename
+	basename: pathBasename,
+	relative: pathRelative
 } = require('path');
 const fs = require('fs');
 const nunjucks = require('nunjucks');
@@ -39,6 +40,7 @@ const flattenDir = require('../lib/flatten-dir');
  *     the config file. Relative to cwd.
  * @param {string} [cwd=process.cwd()] - Current working directory.
  * @param {string} [dest="./public"] - A destination path relative to cwd.
+ * @param {string} [baseDir="./"] - Base directory for the source files.
  * @param {string} [ext=".html"] - The extension for the destination file.
  * @param {boolean} [flatten=false] - If falsy, use full source file name under destination path. Otherwise, flatten it.
  * @return {Promise} A promise with all the results.
@@ -49,11 +51,13 @@ async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], options) {
 		config: relativeConfigFilepath = './nunjucks.config.js',
 		dest: relativeDestinationPath = './public',
 		ext: destinationFilepathExtension = '.html',
+		baseDir: relativeBaseDirectoryForSources = './',
 		cwd: customCwd,
 		flatten = false
 	} = Object(options);
 	const cwd = customCwd || process.cwd();
-	const filepaths = await getFilepaths(sources);
+	const baseDirectoryForSources = pathResolve(cwd, relativeBaseDirectoryForSources);
+	const filepaths = await getFilepaths(sources, baseDirectoryForSources);
 	const destinationPath = pathResolve(cwd, relativeDestinationPath);
 	const configFilepath = pathResolve(cwd, relativeConfigFilepath);
 	const config = (fs.existsSync(configFilepath)
@@ -86,12 +90,12 @@ async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], options) {
 			...dataFileContents,
 			...context
 		};
-		const tasks = filepaths.map((src) => new Promise((resolve, reject) => {
+		const tasks = filepaths.map((filepath) => new Promise((resolve, reject) => {
 
-			const filepath = pathResolve(cwd, src);
+			const filepathWithoutBaseDir = pathResolve(cwd, pathRelative(baseDirectoryForSources, filepath));
 			const destinationFilepath = (flatten
-				? flattenDir(filepath, destinationPath)
-				: expandDir(filepath, destinationPath)
+				? flattenDir(filepathWithoutBaseDir, destinationPath)
+				: expandDir(filepathWithoutBaseDir, destinationPath)
 			).replace(/(\.[^.]+)?$/i, destinationFilepathExtension);
 			const renderName = name || filepath;
 			const nunjucksEnv = nunjucks.configure(path, options);

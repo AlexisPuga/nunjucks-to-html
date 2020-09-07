@@ -8,6 +8,7 @@ Parse Nunjucks templates to HTML directly from the console.
 
 Usage: nunjucks-to-html [sources] [flags...]
 
+  --baseDir <path>        Base directory for the source files. Defaults to './'.
   --config <filepath>     Filepath to the config file. Relative to cwd. Defaults to ./nunjucks.config.js.
   --dest <path>           Path to the destination directory. Relative to cwd. Defaults to ./public
   --ext <string> 	      Extension for the destination file. Defaults to .html
@@ -134,6 +135,7 @@ nunjucksToHtml(['**/*.njk'], {
   'config': './nunjucks.config.js',
   'dest': './public',
   'ext': '.html',
+  'baseDir': './',
   'cwd': process.cwd(),
   'flatten': false
 }).then((results) => {})

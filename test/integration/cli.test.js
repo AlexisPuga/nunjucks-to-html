@@ -202,6 +202,29 @@ describe('CLI', () => {
 
 		});
 
+		describe('--baseDir flag', () => {
+
+			it('Should change the base directory for the source files.', async () => {
+
+				const destinationFilepath = path.join(sandboxDir, 'public', 'cli.html');
+				const {stderr, stdout} = await execAsync(
+					`nunjucks-to-html --baseDir base/dir`,
+					{'cwd': sandboxDir}
+				);
+
+				expect(stderr).toBe('');
+				expect(stdout).not.toBe('');
+
+				expect(fs.readFileSync(destinationFilepath, {
+					'encoding': 'utf8'
+				})).toEqual(
+					expect.stringContaining('<h1>CLI --baseDir flag example</h1>')
+				);
+
+			});
+
+		});
+
 		it('Should handle multiple flags.', async () => {
 
 			const destinationPath = path.resolve(sandboxDir, 'custom dir');
