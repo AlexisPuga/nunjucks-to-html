@@ -106,7 +106,7 @@ describe('CLI', () => {
 				const destinationPath = path.join(sandboxDir, 'custom dir');
 				const {stderr, stdout} = await execAsync(
 					`nunjucks-to-html --dest "${destinationPath}"`,
-					{'ext': sandboxDir}
+					{'cwd': sandboxDir}
 				);
 
 				expect(stderr).toBe('');
