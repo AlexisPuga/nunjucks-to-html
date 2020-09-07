@@ -164,6 +164,44 @@ describe('CLI', () => {
 
 		});
 
+		describe('--flatten flag', () => {
+
+			it('Should flatten the source file name under the destination path, '
+				+ 'if present.', async () => {
+
+				const {stderr, stdout} = await execAsync(
+					`nunjucks-to-html --flatten`,
+					{'cwd': sandboxDir}
+				);
+
+				expect(stderr).toBe('');
+				expect(stdout).not.toBe('');
+
+				expect(fs.existsSync(
+					path.join(sandboxDir, 'public', 'cli.html')
+				)).toBe(true);
+
+			});
+
+			it('Should use the full source file name under the destination path, '
+				+ 'if absent.', async () => {
+
+				const {stderr, stdout} = await execAsync(
+					`nunjucks-to-html`,
+					{'cwd': sandboxDir}
+				);
+
+				expect(stderr).toBe('');
+				expect(stdout).not.toBe('');
+
+				expect(fs.existsSync(
+					path.join(sandboxDir, 'public', 'dir', 'cli.html')
+				)).toBe(true);
+
+			});
+
+		});
+
 		it('Should handle multiple flags.', async () => {
 
 			const destinationPath = path.resolve(sandboxDir, 'custom dir');
