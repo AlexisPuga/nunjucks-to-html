@@ -7,6 +7,11 @@
   "directories": {
     "lib": "lib"
   },
+  "files": [
+    "src",
+    "lib",
+    "bin"
+  ],
   "scripts": {
     "test": "jest --ci",
     "dev": "jest --watch --coverage",
