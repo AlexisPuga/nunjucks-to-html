@@ -183,4 +183,23 @@ describe('CLI', () => {
 
 	});
 
+	describe('nunjucks-to-html source[ source2] --flag value[ --flag2 value2]', () => {
+
+		it('Should read multiple sources and handle multiple flags.', async () => {
+
+			const {stderr, stdout} = await execAsync(
+				`nunjucks-to-html cli.njk dir/cli.no-njk --dest "custom dir" --ext .nunjucks`,
+				{'cwd': sandboxDir}
+			);
+
+			expect(stderr).toBe('');
+			expect(stdout).not.toBe('');
+
+			expect(fs.existsSync(path.join(sandboxDir, 'custom dir', 'cli.nunjucks'))).toBe(true);
+			expect(fs.existsSync(path.join(sandboxDir, 'custom dir', 'dir', 'cli.nunjucks'))).toBe(true);
+
+		});
+
+	});
+
 });
