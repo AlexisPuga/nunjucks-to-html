@@ -11,7 +11,7 @@ describe('CLI', () => {
 
 	});
 
-	describe('[without arguments nor flags]', () => {
+	describe('nunjucks-to-html', () => {
 
 		it('Should parse all .njk files under the ./sandbox directory, '
 			+ 'save the results in ./sanbox/public with the .html extension '
@@ -46,7 +46,7 @@ describe('CLI', () => {
 
 	});
 
-	describe('[without flags]', () => {
+	describe('nunjucks-to-html source[ source2[ source3...]]', () => {
 
 		it('Should set the arguments as sources.', async () => {
 
@@ -78,85 +78,89 @@ describe('CLI', () => {
 
 	});
 
-	describe('using the --config flag', () => {
+	describe('nunjucks-to-html --flag value[ --flag2 value2[ --flag3 value3...]]', () => {
 
-		it('Should read a configuration file in the given path.', async () => {
+		describe('--config flag', () => {
 
-			const configFilepath = path.join(sandboxDir, 'cli.nunjucks.config.js');
-			const {stderr, stdout} = await execAsync(
-				`nunjucks-to-html --config ${configFilepath}`,
-				{'cwd': sandboxDir}
-			);
+			it('Should read a configuration file in the given path.', async () => {
 
-			expect(stderr).toBe('');
-			expect(stdout).toEqual(
-				expect.stringContaining('[test] Read.')
-			);
+				const configFilepath = path.join(sandboxDir, 'cli.nunjucks.config.js');
+				const {stderr, stdout} = await execAsync(
+					`nunjucks-to-html --config ${configFilepath}`,
+					{'cwd': sandboxDir}
+				);
 
-		});
+				expect(stderr).toBe('');
+				expect(stdout).toEqual(
+					expect.stringContaining('[test] Read.')
+				);
 
-	});
-
-	describe('using the --dest flag', () => {
-
-		it('Should change the destination path.', async () => {
-
-			const destinationPath = path.join(sandboxDir, 'custom dir');
-			const {stderr, stdout} = await execAsync(
-				`nunjucks-to-html --dest "${destinationPath}"`,
-				{'ext': sandboxDir}
-			);
-
-			expect(stderr).toBe('');
-			expect(stdout).not.toBe('');
-
-			expect(fs.existsSync(path.join(destinationPath, 'cli.html'))).toBe(true);
-			expect(fs.existsSync(path.join(destinationPath, 'dir', 'cli.html'))).toBe(true);
+			});
 
 		});
 
-	});
+		describe('--dest flag', () => {
 
-	describe('using the --ext flag', () => {
+			it('Should change the destination path.', async () => {
 
-		it('Should change the extension for the destination file.', async () => {
+				const destinationPath = path.join(sandboxDir, 'custom dir');
+				const {stderr, stdout} = await execAsync(
+					`nunjucks-to-html --dest "${destinationPath}"`,
+					{'ext': sandboxDir}
+				);
 
-			const destinationPath = path.join(sandboxDir, 'public');
-			const destinationExtension = '.nunjucks';
-			const destinationFile = `cli${destinationExtension}`;
-			const {stderr, stdout} = await execAsync(
-				`nunjucks-to-html --ext ${destinationExtension}`,
-				{'cwd': sandboxDir}
-			);
+				expect(stderr).toBe('');
+				expect(stdout).not.toBe('');
 
-			expect(stderr).toBe('');
-			expect(stdout).not.toBe('');
+				expect(fs.existsSync(path.join(destinationPath, 'cli.html'))).toBe(true);
+				expect(fs.existsSync(path.join(destinationPath, 'dir', 'cli.html'))).toBe(true);
 
-			expect(fs.existsSync(path.join(destinationPath, destinationFile))).toBe(true);
-			expect(fs.existsSync(path.join(destinationPath, 'dir', destinationFile))).toBe(true);
+			});
 
 		});
 
-	});
+		describe('--ext flag', () => {
 
-	describe('using the --cwd', () => {
+			it('Should change the extension for the destination file.', async () => {
 
-		it('Should change the base directory for all paths.', async () => {
+				const destinationPath = path.join(sandboxDir, 'public');
+				const destinationExtension = '.nunjucks';
+				const destinationFile = `cli${destinationExtension}`;
+				const {stderr, stdout} = await execAsync(
+					`nunjucks-to-html --ext ${destinationExtension}`,
+					{'cwd': sandboxDir}
+				);
 
-			const cwd = path.resolve(sandboxDir, 'cwd');
-			const {stderr, stdout} = await execAsync(
-				`nunjucks-to-html --cwd ${cwd}`,
-				{'cwd': cwd}
-			);
+				expect(stderr).toBe('');
+				expect(stdout).not.toBe('');
 
-			expect(stderr).toBe('');
-			expect(stdout).not.toBe('');
+				expect(fs.existsSync(path.join(destinationPath, destinationFile))).toBe(true);
+				expect(fs.existsSync(path.join(destinationPath, 'dir', destinationFile))).toBe(true);
 
-			expect(fs.readFileSync(path.join(cwd, 'public', 'cli.html'), {
-				'encoding': 'utf8'
-			})).toEqual(
-				expect.stringContaining('<h1>CLI --cwd flag example</h1>')
-			);
+			});
+
+		});
+
+		describe('--cwd flag', () => {
+
+			it('Should change the base directory for all paths.', async () => {
+
+				const cwd = path.resolve(sandboxDir, 'cwd');
+				const {stderr, stdout} = await execAsync(
+					`nunjucks-to-html --cwd ${cwd}`,
+					{'cwd': cwd}
+				);
+
+				expect(stderr).toBe('');
+				expect(stdout).not.toBe('');
+
+				expect(fs.readFileSync(path.join(cwd, 'public', 'cli.html'), {
+					'encoding': 'utf8'
+				})).toEqual(
+					expect.stringContaining('<h1>CLI --cwd flag example</h1>')
+				);
+
+			});
 
 		});
 
