@@ -40,7 +40,7 @@ const flattenDir = require('../lib/flatten-dir');
  * @param {string} [cwd=process.cwd()] - Current working directory.
  * @param {string} [dest="./public"] - A destination path relative to cwd.
  * @param {string} [ext=".html"] - The extension for the destination file.
- * @param {boolean} [expand=true] - If truthy, use full source file name under destination path. Otherwise, flatten it.
+ * @param {boolean} [flatten=false] - If falsy, use full source file name under destination path. Otherwise, flatten it.
  * @return {Promise} A promise with all the results.
  */
 async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], options) {
@@ -50,7 +50,7 @@ async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], options) {
 		dest: relativeDestinationPath = './public',
 		ext: destinationFilepathExtension = '.html',
 		cwd: customCwd,
-		expand = true
+		flatten = false
 	} = Object(options);
 	const cwd = customCwd || process.cwd();
 	const filepaths = await getFilepaths(sources);
@@ -89,9 +89,9 @@ async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], options) {
 		const tasks = filepaths.map((src) => new Promise((resolve, reject) => {
 
 			const filepath = pathResolve(cwd, src);
-			const destinationFilepath = (expand
-				? expandDir(filepath, destinationPath)
-				: flattenDir(filepath, destinationPath)
+			const destinationFilepath = (flatten
+				? flattenDir(filepath, destinationPath)
+				: expandDir(filepath, destinationPath)
 			).replace(/(\.[^.]+)?$/i, destinationFilepathExtension);
 			const renderName = name || filepath;
 			const nunjucksEnv = nunjucks.configure(path, options);
