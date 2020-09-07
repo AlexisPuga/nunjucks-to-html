@@ -6,11 +6,13 @@ Parse Nunjucks templates to HTML directly from the console.
 
 ```cli
 
-Usage: nunjucks-to-html sources [flags...]
+Usage: nunjucks-to-html [sources] [flags...]
 
   --config <filepath>     Filepath to the config file. Relative to cwd. Defaults to ./nunjucks.config.js.
   --dest <path>           Path to the destination directory. Relative to cwd. Defaults to ./public
+  --ext <string> 	      Extension for the destination file. Defaults to .html
   --cwd <path>            The path for the current working directory. Defaults to process.cwd().
+  --flatten <boolean>     If present, flatten the source file name under the destination path. If absent, use the full source file name under the destination path. Defaults to false.
 
 ```
 
@@ -23,12 +25,12 @@ nunjucks-to-html static/**/*.{njk,html}
 
 To configure the destination path, use the `--dest` flag:
   ```cli
-  nunjucks-to-html static/**/*.{njk,html} --dest my-destination
+  nunjucks-to-html --dest my-destination
   ```
 
 To configure Nunjucks using a config. file:
   ```cli
-  nunjucks-to-html static/**/*.{njk,html}
+  nunjucks-to-html
   ```
   ```js
   // nunjucks.config.js
@@ -88,12 +90,12 @@ To configure Nunjucks using a config. file:
 
 To configure the name of the config file, use the `--config` flag:
   ```cli
-  nunjucks-to-html static/**/*.{njk,html} --config njk.js
+  nunjucks-to-html --config njk.js
   ```
 
 To call multiple jobs with different options, export an array of tasks:
   ```cli
-  nunjucks-to-html static/**/*.{njk,html}
+  nunjucks-to-html
   ```
   ```js
   // nunjucks.config.js
@@ -106,7 +108,17 @@ To call multiple jobs with different options, export an array of tasks:
   }, /* ... */];
   ```
 
+To change the file extension of the destination file, use the `--ext` flag.
+  ```cli
+  nunjucks-to-html --ext .html
+  ```
+
+To flatten the source file name under the destination path, use the `--flatten` flag.
+  ```cli
+	nunjucks-to-html --flatten
+  ```
+
 To change the current working directory, use the `--cwd` flag:
   ```cli
-  nunjucks-to-html static/**/*.{njk,html} --cwd /var/www
+  nunjucks-to-html --cwd /var/www
   ```
