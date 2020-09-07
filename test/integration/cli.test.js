@@ -164,6 +164,23 @@ describe('CLI', () => {
 
 		});
 
+		it('Should handle multiple flags.', async () => {
+
+			const destinationPath = path.resolve(sandboxDir, 'custom dir');
+			const destinationExtension = '.htm';
+			const destinationFile = path.join(destinationPath, `cli${destinationExtension}`);
+			const {stderr, stdout} = await execAsync(
+				`nunjucks-to-html --dest ${destinationPath} --ext ${destinationExtension}`,
+				{'cwd': sandboxDir}
+			);
+
+			expect(stderr).toBe('');
+			expect(stdout).not.toBe('');
+
+			expect(fs.existsSync(destinationFile)).toBe(true);
+
+		});
+
 	});
 
 });
