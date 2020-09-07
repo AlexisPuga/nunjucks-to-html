@@ -122,3 +122,24 @@ To change the current working directory, use the `--cwd` flag:
   ```cli
   nunjucks-to-html --cwd /var/www
   ```
+
+## Nodejs usage
+
+The following are the default/supported parameters for this module:
+
+```js
+const nunjucksToHtml = require('nunjucks-to-html');
+
+nunjucksToHtml(['**/*.njk'], {
+  'config': './nunjucks.config.js',
+  'dest': './public',
+  'ext': '.html',
+  'cwd': process.cwd(),
+  'flatten': false
+}).then((results) => {})
+  .catch((error) => {});
+
+// Produces the same result as calling:
+// nunjucksToHtml().then((results) => {}).catch((error) => {});
+
+```
