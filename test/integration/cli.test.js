@@ -170,7 +170,7 @@ describe('CLI', () => {
 			const destinationExtension = '.htm';
 			const destinationFile = path.join(destinationPath, `cli${destinationExtension}`);
 			const {stderr, stdout} = await execAsync(
-				`nunjucks-to-html --dest ${destinationPath} --ext ${destinationExtension}`,
+				`nunjucks-to-html --dest "${destinationPath}" --ext ${destinationExtension}`,
 				{'cwd': sandboxDir}
 			);
 
