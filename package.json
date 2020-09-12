@@ -4,6 +4,9 @@
   "description": "Parse Nunjucks templates to HTML directly from the console.",
   "main": "src/index.js",
   "bin": "./bin/cli.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "directories": {
     "lib": "lib"
   },
