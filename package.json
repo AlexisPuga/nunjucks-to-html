@@ -16,7 +16,7 @@
     "bin"
   ],
   "scripts": {
-    "test": "jest --ci",
+    "test": "jest --ci --detectOpenHandles -i",
     "dev": "jest --watch --coverage",
     "test:integration": "jest test/integration --ci"
   },
