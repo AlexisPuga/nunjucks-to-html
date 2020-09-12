@@ -44,6 +44,8 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@AlexisPuga'
       - run: npm ci
+      # Honor registry-url. See docs.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-npm-for-use-with-github-packages
+      - run: echo registry=https://npm.pkg.github.com/AlexisPuga >> .npmrc
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
