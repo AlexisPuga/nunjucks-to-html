@@ -46,9 +46,9 @@ const nunjucksToHTML = require('nunjucks-to-html');
 
 Usage: nunjucks-to-html [sources] [flags...]
 
-  --baseDir <path>        Base directory for the source files. Defaults to './'.
-  --config <filepath>     Filepath to the config file. Relative to cwd. Defaults to ./nunjucks.config.js.
-  --dest <path>           Path to the destination directory. Relative to cwd. Defaults to ./public
+  --baseDir <path>        Base directory for the source files. Defaults to "".
+  --config <filepath>     Filepath to the config file. Relative to cwd. Defaults to "nunjucks.config.js".
+  --dest <path>           Path to the destination directory. Relative to cwd. Defaults to "public"
   --ext <string> 	  Extension for the destination file. Defaults to .html
   --cwd <path>            The path for the current working directory. Defaults to process.cwd().
   --flatten <boolean>     If present, flatten the source file name under the destination path. If absent, use the full source file name under the destination path. Defaults to false.
@@ -89,7 +89,7 @@ To configure Nunjucks using a config. file:
        * A path to the file containing data for the template.
        * If you want to pass an object, use "render.context" instead.
        */
-      "data": "./some/path/on/cwd.js",
+      "data": "some/path/on/cwd.js",
       /**
        * A hook that's called before calling nunjucks.render()
        * but after nunjucks.configure().
@@ -180,10 +180,10 @@ The following are the default/supported parameters for this module:
 const nunjucksToHtml = require('nunjucks-to-html');
 
 nunjucksToHtml(['**/*.njk'], {
-  'config': './nunjucks.config.js',
-  'dest': './public',
+  'config': 'nunjucks.config.js',
+  'dest': 'public',
   'ext': '.html',
-  'baseDir': './',
+  'baseDir': '',
   'cwd': process.cwd(),
   'flatten': false
 }).then((results) => {})

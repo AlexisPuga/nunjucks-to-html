@@ -1,12 +1,13 @@
 const {exec} = require('child_process');
 const path = require('path');
+const projectRoot = path.resolve(__dirname, '..', '..');
 
 async function execAsync (command, options) {
 
 	return await new Promise((resolve, reject) => {
 
 		const pathToCommand = (/^nunjucks-to-html/.test(command)
-			? path.join(process.cwd(), 'bin', command.replace('nunjucks-to-html', 'cli.js'))
+			? path.resolve(projectRoot, 'bin', command.replace('nunjucks-to-html', 'cli.js'))
 			: null
 		);
 
