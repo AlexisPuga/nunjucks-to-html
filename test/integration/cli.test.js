@@ -8,7 +8,6 @@ describe('CLI', () => {
 
 	afterEach(() => {
 
-		// @TODO Remove created files.
 		del([
 			path.join(sandboxDir, 'public'),
 			path.join(sandboxDir, 'custom dir')
