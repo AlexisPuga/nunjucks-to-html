@@ -27,6 +27,8 @@ describe('CLI', () => {
 			});
 			const destinationPath = path.join(sandboxDir, 'public');
 
+			expect.assertions(6);
+
 			expect(stderr).toBe('');
 			expect(stdout).not.toBe('');
 
@@ -55,6 +57,8 @@ describe('CLI', () => {
 		it('Should set the arguments as sources.', async () => {
 
 			const destinationPath = path.join(sandboxDir, 'public');
+
+			expect.assertions(3);
 
 			await execAsync('nunjucks-to-html "cli.name with spaces.no-njk" cli.no-njk dir/cli.no-njk', {
 				'cwd': sandboxDir
@@ -94,6 +98,8 @@ describe('CLI', () => {
 					{'cwd': sandboxDir}
 				);
 
+				expect.assertions(2);
+
 				expect(stderr).toBe('');
 				expect(stdout).toEqual(
 					expect.stringContaining('[test] Read.')
@@ -112,6 +118,8 @@ describe('CLI', () => {
 					`nunjucks-to-html --dest "${destinationPath}"`,
 					{'cwd': sandboxDir}
 				);
+
+				expect.assertions(4);
 
 				expect(stderr).toBe('');
 				expect(stdout).not.toBe('');
@@ -135,6 +143,8 @@ describe('CLI', () => {
 					{'cwd': sandboxDir}
 				);
 
+				expect.assertions(4);
+
 				expect(stderr).toBe('');
 				expect(stdout).not.toBe('');
 
@@ -154,6 +164,8 @@ describe('CLI', () => {
 					`nunjucks-to-html --cwd ${cwd}`,
 					{'cwd': cwd}
 				);
+
+				expect.assertions(3);
 
 				expect(stderr).toBe('');
 				expect(stdout).not.toBe('');
@@ -178,6 +190,8 @@ describe('CLI', () => {
 					{'cwd': sandboxDir}
 				);
 
+				expect.assertions(3);
+
 				expect(stderr).toBe('');
 				expect(stdout).not.toBe('');
 
@@ -194,6 +208,8 @@ describe('CLI', () => {
 					`nunjucks-to-html`,
 					{'cwd': sandboxDir}
 				);
+
+				expect.assertions(3);
 
 				expect(stderr).toBe('');
 				expect(stdout).not.toBe('');
@@ -215,6 +231,8 @@ describe('CLI', () => {
 					`nunjucks-to-html --baseDir base/dir`,
 					{'cwd': sandboxDir}
 				);
+
+				expect.assertions(3);
 
 				expect(stderr).toBe('');
 				expect(stdout).not.toBe('');
@@ -239,6 +257,8 @@ describe('CLI', () => {
 				{'cwd': sandboxDir}
 			);
 
+			expect.assertions(3);
+
 			expect(stderr).toBe('');
 			expect(stdout).not.toBe('');
 
@@ -256,6 +276,8 @@ describe('CLI', () => {
 				`nunjucks-to-html cli.njk dir/cli.no-njk --dest "custom dir" --ext .nunjucks`,
 				{'cwd': sandboxDir}
 			);
+
+			expect.assertions(4);
 
 			expect(stderr).toBe('');
 			expect(stdout).not.toBe('');
