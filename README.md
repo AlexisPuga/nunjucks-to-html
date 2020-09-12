@@ -1,6 +1,44 @@
-# Nunjucks to HTML
+# Nunjucks to HTML <a href='https://badge.fury.io/js/nunjucks-to-html'><img align='right' src='https://badge.fury.io/js/nunjucks-to-html.svg' alt='npm version' /></a>
 
-Parse Nunjucks templates to HTML directly from the console.
+**Parse Nunjucks templates to HTML easily. You don't need Gulp nor Grunt to do it.**
+
+*Keep your HTML clean and modularized by using a templating engine, like [Nunjucks](https://mozilla.github.io/nunjucks). Then, convert those files into HTML during your development process or even during production. This way, you can split your files, replace variables, etc... Why Nunjucks? Because it's heavily inspired by [Jinja2](https://jinja.palletsprojects.com/) but written for Javascript environments.*
+
+## Installation
+
+Via npm:
+```cli
+npm i nunjucks-to-html
+```
+
+Via yarn:
+```cli
+yarn add nunjucks-to-html
+```
+
+## Usage
+
+Using this tool is as simple as installing it, and executing the following:
+```cli
+nunjucks-to-html
+```
+
+However, it's expected to be used in your package.json (in the "scripts" section):
+```json
+"scripts": {
+  "build": "npm run build:html",
+  "build:html": "nunjucks-to-html"
+},
+"devDependencies": {
+  "nunjucks-to-html": "*"
+}
+```
+
+Or importing it server side using:
+```js
+const nunjucksToHTML = require('nunjucks-to-html');
+// Or: import nunjucksToHTML from 'nunjucks-to-html';
+```
 
 ## CLI usage
 
@@ -11,7 +49,7 @@ Usage: nunjucks-to-html [sources] [flags...]
   --baseDir <path>        Base directory for the source files. Defaults to './'.
   --config <filepath>     Filepath to the config file. Relative to cwd. Defaults to ./nunjucks.config.js.
   --dest <path>           Path to the destination directory. Relative to cwd. Defaults to ./public
-  --ext <string> 	      Extension for the destination file. Defaults to .html
+  --ext <string> 	  Extension for the destination file. Defaults to .html
   --cwd <path>            The path for the current working directory. Defaults to process.cwd().
   --flatten <boolean>     If present, flatten the source file name under the destination path. If absent, use the full source file name under the destination path. Defaults to false.
 
