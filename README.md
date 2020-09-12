@@ -1,4 +1,7 @@
-# Nunjucks to HTML <a href='https://badge.fury.io/js/nunjucks-to-html'><img align='right' src='https://badge.fury.io/js/nunjucks-to-html.svg' alt='npm version' /></a>
+# Nunjucks to HTML
+
+![Cross OS CI](https://github.com/AlexisPuga/nunjucks-to-html/workflows/Cross%20OS%20CI/badge.svg)
+[![npm version](https://badge.fury.io/js/nunjucks-to-html.svg)](https://badge.fury.io/js/nunjucks-to-html)
 
 **Parse Nunjucks templates to HTML easily. You don't need Gulp nor Grunt to do it.**
 
