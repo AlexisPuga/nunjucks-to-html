@@ -6,9 +6,9 @@ const sandboxDir = path.join(__dirname, 'sandbox');
 
 describe('CLI', () => {
 
-	afterEach(() => {
+	afterEach(async () => {
 
-		del([
+		await del([
 			path.join(sandboxDir, 'public'),
 			path.join(sandboxDir, 'custom dir')
 		]);
