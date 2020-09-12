@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const del = require('del');
 const execAsync = require('../lib/exec-async');
 const sandboxDir = path.join(__dirname, 'sandbox');
 
@@ -8,6 +9,10 @@ describe('CLI', () => {
 	afterEach(() => {
 
 		// @TODO Remove created files.
+		del([
+			path.join(sandboxDir, 'public'),
+			path.join(sandboxDir, 'custom dir')
+		]);
 
 	});
 
