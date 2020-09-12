@@ -1,6 +1,6 @@
 {
   "name": "nunjucks-to-html",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0",
   "description": "Parse Nunjucks templates to HTML directly from the console.",
   "main": "src/index.js",
   "bin": "./bin/cli.js",
