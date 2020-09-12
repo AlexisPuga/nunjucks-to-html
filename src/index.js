@@ -36,11 +36,11 @@ const flattenDir = require('../lib/flatten-dir');
  *
  * @param {string[]} [sources=all .njk files] - A array of glob patterns.
  * @param {object} [options] - Non-nunjucks options.
- * @param {string} [options.config="./nunjucks.config.js"] - Path for
+ * @param {string} [options.config="nunjucks.config.js"] - Path for
  *     the config file. Relative to cwd.
  * @param {string} [cwd=process.cwd()] - Current working directory.
- * @param {string} [dest="./public"] - A destination path relative to cwd.
- * @param {string} [baseDir="./"] - Base directory for the source files.
+ * @param {string} [dest="public"] - A destination path relative to cwd.
+ * @param {string} [baseDir=""] - Base directory for the source files.
  * @param {string} [ext=".html"] - The extension for the destination file.
  * @param {boolean} [flatten=false] - If falsy, use full source file name under destination path. Otherwise, flatten it.
  * @return {Promise} A promise with all the results.
@@ -48,10 +48,10 @@ const flattenDir = require('../lib/flatten-dir');
 async function parseNunjucksTemplatesToHTML (sources = ['**/*.njk'], options) {
 
 	const {
-		config: relativeConfigFilepath = './nunjucks.config.js',
-		dest: relativeDestinationPath = './public',
+		config: relativeConfigFilepath = 'nunjucks.config.js',
+		dest: relativeDestinationPath = 'public',
 		ext: destinationFilepathExtension = '.html',
-		baseDir: relativeBaseDirectoryForSources = './',
+		baseDir: relativeBaseDirectoryForSources = '',
 		cwd: customCwd,
 		flatten = false
 	} = Object(options);
