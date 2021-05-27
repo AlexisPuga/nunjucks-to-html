@@ -43,11 +43,11 @@
   },
   "homepage": "https://github.com/AlexisPuga/nunjucks-to-html#readme",
   "dependencies": {
-    "glob": "^7.1.6",
-    "nunjucks": "^3.2.2"
+    "glob": "^7.1.7",
+    "nunjucks": "^3.2.3"
   },
   "devDependencies": {
-    "del": "^5.1.0",
-    "jest": "^26.4.2"
+    "del": "^6.0.0",
+    "jest": "^27.0.1"
   }
 }
